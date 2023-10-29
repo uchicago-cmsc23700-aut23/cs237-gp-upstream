@@ -109,14 +109,6 @@ endif()
 add_subdirectory(cs237-library)
 set(CS237_DOXYGEN_HTML_DIR ${CMAKE_SOURCE_DIR}/cs237-library/doc)
 
-# the subdirectory for the labs
-#
-add_subdirectory(labs EXCLUDE_FROM_ALL)
-
-# the subdirectory for the individual projects
-#
-add_subdirectory(projects EXCLUDE_FROM_ALL)
-
 # the subdirectory for the group projects
 #
 #add_subdirectory(group-project EXCLUDE_FROM_ALL)

@@ -18,16 +18,19 @@ extern "C" {
 #endif // C++
 
 //! the path to the root of the build directory
-#define CS237_BINARY_DIR "/Users/jhr/Classes/23700/f2023/cmsc23700-upstream/build"
+#define CS237_BINARY_DIR "/Users/jhr/Classes/23700/f2023/cs237-gp-upstream/build"
 
 //! the path to the root of the source directory
-#define CS237_SOURCE_DIR "/Users/jhr/Classes/23700/f2023/cmsc23700-upstream"
+#define CS237_SOURCE_DIR "/Users/jhr/Classes/23700/f2023/cs237-gp-upstream"
 
 //! if <strings.h> is available and needed for strncasecmp
 #define INCLUDE_STRINGS_H <strings.h>
 
 //! is strncasecmp available?
 #define HAVE_STRNCASECMP
+
+//! flag for windows build
+/* #undef CS237_WINDOWS */
 
 #ifdef __cplusplus
 }

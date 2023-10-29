@@ -21,7 +21,7 @@ namespace tqt {
 /// Manages a disk-based texture-image quadtree and supports loading individual
 /// texture images at different levels and locations in the tree.
 class TextureQTree {
-  public:
+public:
 
     /// \brief constructor for a texture quad tree
     /// \param filename
@@ -52,7 +52,7 @@ class TextureQTree {
     /// return true if the file looks like a TQT file of the right version
     static bool isTQTFile (std::string const &filename);
 
-  private:
+private:
     std::vector<std::streamoff> _toc;       ///< stream offsets for images
     int _depth;                             ///< the depth of the TQT
     int _tileSize;                          ///< the size of a texture tile in pixels
