@@ -79,8 +79,8 @@ void TextureBase::_init (cs237::__detail::ImageBase const *img)
         vk::ImageLayout::eShaderReadOnlyOptimal);
 
     // free up the staging buffer
-    this->_app->_device.freeMemory(stagingBufMem);
-    this->_app->_device.destroyBuffer(stagingBuf);
+    device.freeMemory(stagingBufMem);
+    device.destroyBuffer(stagingBuf);
 
 }
 

@@ -23,6 +23,9 @@ public:
     /// return the image view for the texture
     vk::ImageView view () const { return this->_view; }
 
+    /// get the texel format
+    vk::Format format () const { return this->_fmt; }
+
 protected:
     Application *_app;          ///< the owning application
     vk::Image _img;             ///< Vulkan image to hold the texture

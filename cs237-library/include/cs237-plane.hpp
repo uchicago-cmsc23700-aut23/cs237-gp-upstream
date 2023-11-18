@@ -1,4 +1,4 @@
-/*! \file plane.hxx
+/*! \file cs237-plane.hpp
  *
  * Representation of a plane in 3D space.
  *
@@ -18,71 +18,79 @@
 
 namespace cs237 {
 
+namespace __detail {
+
 /// representation of a oriented 3D plane
+template <typename T>
 struct Plane {
-    glm::dvec4 _nd;     /// unit normal and signed distance from origin
+    using vec3 = glm::vec<3, T, glm::defaultp>;
+    using vec4 = glm::vec<4, T, glm::defaultp>;
+
+    vec4 _nd;     /// unit normal and signed distance from origin
 
     Plane () { }
 
     /// \brief specify a plane as a unit-length normal vector and
-    ///        signed distance from origin (single precision)
+    ///        signed distance from origin
     /// \param n unit-length plane normal vector
     /// \param d signed distance from origin to the plane
-    Plane (glm::vec3 n, float d) : _nd(glm::dvec4(glm::dvec3(n), double(d))) { }
+    Plane (vec3 n, T d) : _nd(vec4(n, T(d))) { }
 
-    /// \brief specify a plane as a unit-length normal vector and
-    ///        signed distance from origin (double precision)
-    /// \param n unit-length plane-normal vector
-    /// \param d signed distance from origin to the plane
-    Plane (glm::dvec3 n, double d) : _nd(glm::dvec4(n, d)) { }
-
-    /// \brief specify a plane as a normal vector and point on the plane (single precision)
+    /// \brief specify a plane as a normal vector and point on the plane
     /// \param n plane-normal vector (does not have to be unit length)
     /// \param p a point on the plane
-    Plane (glm::vec3 n, glm::vec3 p)
+    Plane (vec3 n, vec3 p)
     {
-        glm::dvec3 norm = glm::normalize(glm::dvec3(n));
-        double d = -glm::dot(norm, glm::dvec3(p));
-        this->_nd = glm::dvec4(norm, d);
-    }
-
-    /// \brief specify a plane as a normal vector and point on the plane (double precision)
-    /// \param n plane-normal vector (does not have to be unit length)
-    /// \param p a point on the plane
-    Plane (glm::dvec3 n, glm::dvec3 p)
-    {
-        glm::dvec3 norm = glm::normalize(n);
+        vec3 norm = glm::normalize(n);
         double d = -glm::dot(norm, p);
-        this->_nd = glm::dvec4(norm, d);
+        this->_nd = vec4(norm, d);
     }
 
-    /// \brief get the plane normal vector (double precision)
-    glm::dvec3 normd () const { return glm::dvec3(this->_nd); }
+    /// \brief get the plane normal vector
+    vec3 norm () const { return vec3(this->_nd); }
 
-    /// \brief get the plane normal vector (single precision)
-    glm::vec3 normf () const { return glm::vec3(this->normd()); }
-
-    /// \brief signed distance from origin to plane (double precision)
-    double distd () const { return this->_nd.w; }
-
-    /// \brief signed distance from origin to plane (single precision)
-    float distf () const { return float(this->_nd.w); }
+    /// \brief signed distance from origin to plane
+    T dist () const { return this->_nd.w; }
 
     /// \brief signed distance from a point to plane
     /// \param p a point in space
     /// \return the signed distance from `p` to the plane
-    double distanceToPt (glm::dvec3 const &p) const
+    T distanceToPt (vec3 const &p) const
     {
-	return glm::dot(this->_nd, glm::dvec4(p, 1.0));
+	return glm::dot(this->_nd, vec4(p, 1.0));
     }
+
+    /// project a point onto the plane
+    /// \param p a point in space
+    /// \return the projection of the point `p` onto the plane.
+    vec3 project (vec3 const &p) const
+    {
+        return p - this->distanceToPt(p) * this->norm();
+    }
+
+    /// the string representation of a plane
+    std::string toString () const
+    {
+        return "Plane(" + glm::to_string(this->norm()) + ", "
+            + to_string(this->dist()) + ")";
+    }
+
 };
 
 /***** Output *****/
 
-inline std::ostream& operator<< (std::ostream& s, Plane const &plane)
+template <typename T>
+inline std::ostream& operator<< (std::ostream& s, Plane<T> const &plane)
 {
-    return (s << "Plane(" << glm::to_string(glm::dvec3(plane._nd)) << ", " << plane._nd.w << ")");
+    return (s << plane.toString());
 }
+
+} // namespace __detail
+
+/// Single-precision planes
+using Planef_t = __detail::Plane<float>;
+/// Double-precision planes
+using Planed_t = __detail::Plane<double>;
 
 } // namespace cs237
 

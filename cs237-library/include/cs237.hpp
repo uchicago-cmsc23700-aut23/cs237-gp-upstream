@@ -70,6 +70,16 @@ inline void ReportError (const char *file, int line, std::string const &msg)
 #include "cs237-image.hpp"
 #include "cs237-texture.hpp"
 #include "cs237-depth-buffer.hpp"
+
+/* geometric types */
 #include "cs237-aabb.hpp"
+#include "cs237-plane.hpp"
+
+/***** a wrapper for printing GLM vectors *****/
+template<glm::length_t L, typename T, glm::qualifier Q>
+std::ostream& operator<< (std::ostream& s, glm::vec<L,T,Q> const &v)
+{
+    return (s << glm::to_string(v));
+}
 
 #endif // !_CS237_HPP_
