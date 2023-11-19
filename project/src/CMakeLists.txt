@@ -17,6 +17,7 @@ set(SRCS
   frustum.cpp
   main.cpp
   map-cell.cpp
+  map-objects.cpp
   map.cpp
   texture-cache.cpp
   vao.cpp
@@ -28,4 +29,4 @@ include_directories(${CS237_INCLUDE_DIR})
 add_executable(${TARGET} ${SRCS})
 
 target_link_libraries(${TARGET} cs237)
-add_dependencies(${TARGET} part1-shaders)
+add_dependencies(${TARGET} project-shaders)

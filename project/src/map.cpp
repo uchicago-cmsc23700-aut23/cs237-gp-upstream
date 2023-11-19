@@ -35,6 +35,11 @@ Map::~Map ()
         }
         delete this->_grid;
     }
+#ifdef PART2
+    if (this->_objects != nullptr) {
+        delete this->_objects;
+    }
+#endif
 
 }
 
@@ -286,15 +291,12 @@ bool Map::load (std::string const &mapName, bool verbose)
         this->_assetsDir = "";
     }
 
-
 #ifdef PART2
     // are there any objects?
     {
         if (! this->_assetsDir.empty()) {
             if (access(this->_assetsDir.c_str(), F_OK) == 0) {
-                this->_objects = new Objects (this->_app, this);
-            } else {
-                this->_objects = nullptr;
+                this->_objects = new MapObjects (this);
             }
         }
     }

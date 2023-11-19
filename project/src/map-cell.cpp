@@ -180,10 +180,7 @@ void Cell::load ()
 void Cell::loadObjects ()
 {
 #ifdef PART2
-    if (this->_map->objects()->loadObjects (this->_stem, this->_objects)) {
-        std::cerr << "Cell::load: error loading objects for cell\n";
-        exit (1);
-    }
+    this->_map->objects()->loadObjects (this, this->_objects);
 #endif
 }
 
