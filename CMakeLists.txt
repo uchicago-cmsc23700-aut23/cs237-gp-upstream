@@ -111,4 +111,5 @@ set(CS237_DOXYGEN_HTML_DIR ${CMAKE_SOURCE_DIR}/cs237-library/doc)
 
 # the subdirectory for the group projects
 #
-#add_subdirectory(group-project EXCLUDE_FROM_ALL)
+add_subdirectory(project EXCLUDE_FROM_ALL)
+
