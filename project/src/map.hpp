@@ -195,7 +195,7 @@ inline class Cell *Map::cellAt (double x, double z) const
     else
         return this->cell(
             static_cast<uint32_t>(z / this->_hScale),
-            static_cast<uint32_t>(x / this->_vScale));
+            static_cast<uint32_t>(x / this->_hScale));
 }
 
 inline glm::dvec3 Map::nwCellCorner (uint32_t row, uint32_t col) const
